@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, AlarmixActivity!</string>
+    <string name="strAppName">Alarmix</string>
+    <string name="strViewAlarms">View Alarms</string>
+    <string name="strPickSongs">Pick Songs</string>
+    <string name="strAll">All</string>
+    <string name="strDone">Done</string>
+
+</resources>
