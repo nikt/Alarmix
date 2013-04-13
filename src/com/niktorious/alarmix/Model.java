@@ -4,6 +4,6 @@ import java.util.ArrayList;
 
 
 public class Model {
-    public ArrayList<String> lstMediaPaths;
-    public ArrayList<Alarm>  lstAlarms;
+    public ArrayList<String> lstMediaPaths = new ArrayList<String>();
+    public ArrayList<Alarm>  lstAlarms     = new ArrayList<Alarm>();
 }

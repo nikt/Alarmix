@@ -93,6 +93,9 @@ public class PickSongsActivity extends Activity {
         
         butDone.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
+                AlarmixApp app = (AlarmixApp) getApplicationContext();
+                app.getModel().lstMediaPaths = listAdapter.getFileList();
+                
                 Intent data = new Intent();
                 
                 // fill data with the media the user has chosen

@@ -73,4 +73,18 @@ public class MediaListAdapter extends BaseAdapter
     {
         return lstSelected[ix];
     }
+    public ArrayList<String> getFileList()
+    {
+        ArrayList<String> lstFiles = new ArrayList<String>();
+        
+        for (int ix = 0; ix < lstMedia.size(); ix++)
+        {
+            if (lstSelected[ix])
+            {
+                lstFiles.add(lstMedia.get(ix).get("mediaPath"));
+            }
+        }
+        
+        return lstFiles;
+    }
 }

@@ -16,5 +16,6 @@
     <string name="strWed">W</string>
     <string name="strTimeEx">12:59</string>
     <string name="strCommentEx">comment placeholder</string>
+    <string name="strNew">New</string>
 
 </resources>

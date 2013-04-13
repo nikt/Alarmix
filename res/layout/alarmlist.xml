@@ -12,6 +12,28 @@
         android:text="@string/strViewAlarms"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
+    <LinearLayout
+        android:id="@+id/alarmListHeaderView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+	    <Button
+	        android:id="@+id/butNew"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="@string/strNew" />
+	
+	    <Button
+	        android:id="@+id/butDone"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="@string/strDone" />
+
+    </LinearLayout>
+    
     <View
 	    android:layout_width="fill_parent"
 	    android:layout_height="1dp"

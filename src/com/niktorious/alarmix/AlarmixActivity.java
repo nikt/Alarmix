@@ -41,7 +41,5 @@ public class AlarmixActivity extends Activity {
     
     private void handleClickViewAlarms () {
         startActivity(new Intent(this, ViewAlarmsActivity.class));
-        //Toast toast = Toast.makeText(this, "Oops!", Toast.LENGTH_SHORT);
-        //toast.show();
     }
 }
