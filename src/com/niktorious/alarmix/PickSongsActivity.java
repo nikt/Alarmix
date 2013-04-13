@@ -1,13 +1,8 @@
 package com.niktorious.alarmix;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -27,39 +22,12 @@ public class PickSongsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.medialist);
         
-        //MediaManager manager = new MediaManager();
-        //manager.buildMediaList();
-        
-        //////////////////////////////////////////////////////////////////////////////////////////////////
-        
-        String[] request = {MediaStore.Audio.Media.TITLE, MediaStore.Audio.Media.DISPLAY_NAME};
-        
-        Cursor cur = managedQuery(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, request, null, null, null);
-        ArrayList<HashMap<String, String>> lstMedia = new ArrayList<HashMap<String, String>>();
-        
-        int ixName = cur.getColumnIndex(MediaStore.Audio.Media.TITLE);
-        int ixFile = cur.getColumnIndex(MediaStore.Audio.Media.DISPLAY_NAME);
-        
-        for (cur.moveToFirst(); !cur.isAfterLast(); cur.moveToNext())
-        {
-            // add this file to the list
-            HashMap<String, String> media = new HashMap<String, String>();
-            
-            // don't forget to account for file extension
-            media.put("mediaTitle", cur.getString(ixName));
-            
-            // store path as well in case the file needs to be accessed later
-            media.put("mediaPath",  cur.getString(ixFile));
-            
-            // add to mediaList
-            lstMedia.add(media);
-        }
-        
-        //////////////////////////////////////////////////////////////////////////////////////////////////
+        MediaManager manager = new MediaManager(this);
+        manager.buildMediaList();
         
         ListView mediaListView = (ListView) findViewById(R.id.mediaListView);
         
-        listAdapter = new MediaListAdapter(this, lstMedia); /*manager.getMediaList()*/
+        listAdapter = new MediaListAdapter(this, manager.getMediaList()); /*manager.getMediaList()*/
         
         mediaListView.setAdapter(listAdapter);
         

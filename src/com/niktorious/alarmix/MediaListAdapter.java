@@ -12,7 +12,8 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 
 
-public class MediaListAdapter extends BaseAdapter {
+public class MediaListAdapter extends BaseAdapter
+{
     private Context context;
     private ArrayList<HashMap<String, String>> lstMedia = new ArrayList<HashMap<String, String>>();
     private boolean[] lstSelected;
@@ -31,20 +32,25 @@ public class MediaListAdapter extends BaseAdapter {
     }
 
     // Adapter functions
-    public int getCount() {
+    public int getCount()
+    {
         return lstMedia.size();
     }
-    public Object getItem(int ix) {
+    public Object getItem(int ix)
+    {
         return lstMedia.get(ix);
     }
-    public long getItemId(int ix) {
+    public long getItemId(int ix)
+    {
         return ix;
     }
     
-    public int getItemViewType(int ix) {
+    public int getItemViewType(int ix)
+    {
         return R.layout.medialist_item;
     }
-    public View getView(int ix, View convertView, ViewGroup parent) {
+    public View getView(int ix, View convertView, ViewGroup parent)
+    {
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.medialist_item, parent, false);
         CheckBox chkMedia = (CheckBox) rowView.findViewById(R.id.chkSelected);
@@ -54,15 +60,14 @@ public class MediaListAdapter extends BaseAdapter {
         return rowView;
     }
     
-    public boolean isEmpty() {
+    // Custom helper functions
+    public boolean isEmpty()
+    {
         return lstMedia.isEmpty();
     }
-    
-    // Custom helper functions
     public void setSelected(int ix, boolean isSelected)
     {
         lstSelected[ix] = isSelected;
-        //notifyDataSetChanged();
     }
     public boolean isSelected(int ix)
     {

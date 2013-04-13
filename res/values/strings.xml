@@ -7,5 +7,14 @@
     <string name="strPickSongs">Pick Songs</string>
     <string name="strAll">All</string>
     <string name="strDone">Done</string>
+    <string name="strMon">M</string>
+    <string name="strTue">Tu</string>
+    <string name="strThu">Th</string>
+    <string name="strFri">F</string>
+    <string name="strSat">Sa</string>
+    <string name="strSun">Su</string>
+    <string name="strWed">W</string>
+    <string name="strTimeEx">12:59</string>
+    <string name="strCommentEx">comment placeholder</string>
 
 </resources>
