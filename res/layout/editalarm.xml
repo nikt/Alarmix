@@ -5,10 +5,10 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/tvNewAlarm"
+        android:id="@+id/tvEditAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/strNewAlarm"
+        android:text="@string/strEditAlarm"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
     <LinearLayout
@@ -17,35 +17,35 @@
 	    android:orientation="horizontal" >
 	    
         <Button
-            android:id="@+id/butCreate"
+            android:id="@+id/butSave"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/strCreate" />
+            android:text="@string/strSave" />
 	
 	    <Button
-	        android:id="@+id/butCancel"
+	        android:id="@+id/butDelete"
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
-	        android:text="@string/strCancel" />
+	        android:text="@string/strDelete" />
 	    
     </LinearLayout>
 
     <TimePicker
-        android:id="@+id/tpNewTime"
+        android:id="@+id/tpEditTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/tvNewAlarmName"
+        android:id="@+id/tvAlarmName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/strAlarmName"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
-        android:id="@+id/fldNewAlarmName"
+        android:id="@+id/fldEditAlarmName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -65,7 +65,7 @@
 	    android:orientation="horizontal" >
     
 	    <ToggleButton
-	        android:id="@+id/togNewMon"
+	        android:id="@+id/togEditMon"
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
@@ -73,7 +73,7 @@
 	        android:textOff="@string/strMon" />
 	    
 	    <ToggleButton
-	        android:id="@+id/togNewTue"
+	        android:id="@+id/togEditTue"
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
@@ -81,7 +81,7 @@
 	        android:textOff="@string/strTue" />
 	    
 	    <ToggleButton
-	        android:id="@+id/togNewWed"
+	        android:id="@+id/togEditWed"
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
@@ -89,7 +89,7 @@
 	        android:textOff="@string/strWed" />
 	    
 	    <ToggleButton
-	        android:id="@+id/togNewThu"
+	        android:id="@+id/togEditThu"
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
@@ -97,7 +97,7 @@
 	        android:textOff="@string/strThu" />
 	    
 	    <ToggleButton
-	        android:id="@+id/togNewFri"
+	        android:id="@+id/togEditFri"
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
@@ -105,7 +105,7 @@
 	        android:textOff="@string/strFri" />
 	    
 	    <ToggleButton
-	        android:id="@+id/togNewSat"
+	        android:id="@+id/togEditSat"
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
@@ -113,7 +113,7 @@
 	        android:textOff="@string/strSat" />
 	    
 	    <ToggleButton
-	        android:id="@+id/togNewSun"
+	        android:id="@+id/togEditSun"
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"

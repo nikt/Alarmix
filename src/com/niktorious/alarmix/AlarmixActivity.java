@@ -7,12 +7,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class AlarmixActivity extends Activity {
+public class AlarmixActivity extends Activity
+{
     private final int MEDIA_LIST_REQUEST = 1;
     
     /** Called when the activity is first created. */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
@@ -34,12 +36,14 @@ public class AlarmixActivity extends Activity {
         });
     }
     
-    private void handleClickPickSongs () {
+    private void handleClickPickSongs()
+    {
         //startActivity(new Intent(this, PickSongsActivity.class));
         startActivityForResult(new Intent(this, PickSongsActivity.class), MEDIA_LIST_REQUEST);
     }
     
-    private void handleClickViewAlarms () {
+    private void handleClickViewAlarms()
+    {
         startActivity(new Intent(this, ViewAlarmsActivity.class));
     }
 }

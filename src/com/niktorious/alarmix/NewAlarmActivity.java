@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
@@ -24,7 +24,7 @@ public class NewAlarmActivity extends Activity
         setContentView(R.layout.newalarm);
         
         // Set the time picker to show the time + 1 hour
-        TimePicker timePicker = (TimePicker) findViewById(R.id.tpTime);
+        TimePicker timePicker = (TimePicker) findViewById(R.id.tpNewTime);
         
         Calendar cal = Calendar.getInstance(); 
         
@@ -51,29 +51,23 @@ public class NewAlarmActivity extends Activity
         });
     }
     
+    // Helpers
     private void handleClickCreate()
     {
         // Create new alarm
         Alarm alarm = new Alarm();
         
         // Populate dateTarget
-        TimePicker timePicker = (TimePicker) findViewById(R.id.tpTime);
-        alarm.dateTarget.setHours(timePicker.getCurrentHour());
-        alarm.dateTarget.setMinutes(timePicker.getCurrentMinute());
+        TimePicker timePicker = (TimePicker) findViewById(R.id.tpNewTime);
+        alarm.nHour   = timePicker.getCurrentHour();
+        alarm.nMinute = timePicker.getCurrentMinute();
         
         // Populate strName
-        TextView tvName = (TextView) findViewById(R.id.tvAlarmName);
-        alarm.strName = (String) tvName.getText();
+        EditText fldAlarmName = (EditText) findViewById(R.id.fldNewAlarmName);
+        alarm.strName = fldAlarmName.getText().toString();
         
         // Populate fDayOfWeek
-        ToggleButton[] togDay = new ToggleButton[NUM_DAYS];
-        togDay[0] = (ToggleButton) findViewById(R.id.togMon);
-        togDay[1] = (ToggleButton) findViewById(R.id.togTue);
-        togDay[2] = (ToggleButton) findViewById(R.id.togWed);
-        togDay[3] = (ToggleButton) findViewById(R.id.togThu);
-        togDay[4] = (ToggleButton) findViewById(R.id.togFri);
-        togDay[5] = (ToggleButton) findViewById(R.id.togSat);
-        togDay[6] = (ToggleButton) findViewById(R.id.togSun);
+        ToggleButton[] togDay = getScheduleToggleButtons();
         for (int i = 0; i < NUM_DAYS; i++)
         {
             alarm.fDayOfWeek[i] = togDay[i].isChecked();
@@ -85,5 +79,18 @@ public class NewAlarmActivity extends Activity
         
         // return to ViewAlarmsActvity
         finish();
+    }
+    
+    private ToggleButton[] getScheduleToggleButtons()
+    {
+        ToggleButton[] togDay = new ToggleButton[NUM_DAYS];
+        togDay[0] = (ToggleButton) findViewById(R.id.togNewMon);
+        togDay[1] = (ToggleButton) findViewById(R.id.togNewTue);
+        togDay[2] = (ToggleButton) findViewById(R.id.togNewWed);
+        togDay[3] = (ToggleButton) findViewById(R.id.togNewThu);
+        togDay[4] = (ToggleButton) findViewById(R.id.togNewFri);
+        togDay[5] = (ToggleButton) findViewById(R.id.togNewSat);
+        togDay[6] = (ToggleButton) findViewById(R.id.togNewSun);
+        return togDay;
     }
 }

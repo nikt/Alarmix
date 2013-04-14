@@ -5,14 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 
 
 public class ViewAlarmsActivity extends Activity
 {
-    
-    private AlarmListAdapter listAdapter;
+    private AlarmListAdapter m_listAdapter;
 
     /** Called when the activity is first created. */
     @Override
@@ -22,11 +23,17 @@ public class ViewAlarmsActivity extends Activity
         setContentView(R.layout.alarmlist);
         
         AlarmixApp app = (AlarmixApp) getApplicationContext();
-        listAdapter = new AlarmListAdapter(this, app.getModel().lstAlarms);
+        m_listAdapter = new AlarmListAdapter(this, app.getModel().lstAlarms);
         
         ListView alarmListView = (ListView) findViewById(R.id.alarmListView);
         
-        alarmListView.setAdapter(listAdapter);
+        alarmListView.setAdapter(m_listAdapter);
+        
+        alarmListView.setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int ix, long id) {
+                handleClickAlarmList(ix);
+            }
+        });
         
         Button butNew  = (Button) findViewById(R.id.butNew);
         Button butDone = (Button) findViewById(R.id.butDone);
@@ -46,7 +53,6 @@ public class ViewAlarmsActivity extends Activity
                 finish();
             }
         });
-
     }
     
     /** Called when the activity is resumed. */
@@ -54,11 +60,21 @@ public class ViewAlarmsActivity extends Activity
     protected void onResume()
     {
         super.onResume();
-        listAdapter.notifyDataSetChanged();
+        m_listAdapter.notifyDataSetChanged();
     }
     
+    // Helpers
     private void handleClickNewAlarm()
     {
         startActivity(new Intent(this, NewAlarmActivity.class));
+    }
+    
+    private void handleClickAlarmList(int ix)
+    {
+        // start EditAlarmActivity for the selected alarm
+        Intent data = new Intent(this, EditAlarmActivity.class);
+        //data.putExtra("alarm", (Alarm) listAdapter.getItem(ix));
+        data.putExtra("alarmIndex", ix);
+        startActivity(data);
     }
 }

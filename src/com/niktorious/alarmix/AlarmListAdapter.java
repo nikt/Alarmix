@@ -14,23 +14,23 @@ public class AlarmListAdapter extends BaseAdapter
 {
     final private int NUM_DAYS = 7;
     private Context context;
-    ArrayList<Alarm> lstAlarms;
+    private ArrayList<Alarm> m_lstAlarms;
     
- // constructor: pass in the list of alarms that you want to display
+    // constructor: pass in the list of alarms that you want to display
     public AlarmListAdapter(Context context, ArrayList<Alarm> lstAlarms)
     {
-        this.context   = context;
-        this.lstAlarms = lstAlarms;
+        this.context     = context;
+        this.m_lstAlarms = lstAlarms;
     }
 
     // Adapter functions
     public int getCount()
     {
-        return lstAlarms.size();
+        return m_lstAlarms.size();
     }
     public Object getItem(int ix)
     {
-        return lstAlarms.get(ix);
+        return m_lstAlarms.get(ix);
     }
     public long getItemId(int ix)
     {
@@ -47,8 +47,8 @@ public class AlarmListAdapter extends BaseAdapter
         TextView tvTime = (TextView) rowView.findViewById(R.id.tvTime);
         
         String display = new String();
-        int hours   = alarm.dateTarget.getHours();
-        int minutes = alarm.dateTarget.getMinutes();
+        int hours   = alarm.nHour;
+        int minutes = alarm.nMinute;
         boolean fAM = true;
         
         if (hours > 12)
@@ -84,7 +84,7 @@ public class AlarmListAdapter extends BaseAdapter
             }
             else
             {
-                tvDaysOfWeek[i].setTextColor(context.getResources().getColor(R.color.LightGrey));
+                // do nothing: use default colours
             }
         }
         
@@ -98,7 +98,7 @@ public class AlarmListAdapter extends BaseAdapter
     // Helpers
     public boolean isEmpty()
     {
-        return lstAlarms.isEmpty();
+        return m_lstAlarms.isEmpty();
     }
 
 }

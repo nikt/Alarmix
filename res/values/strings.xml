@@ -23,5 +23,8 @@
     <string name="strSchedule">Schedule:</string>
     <string name="strCancel">Cancel</string>
     <string name="strCreate">Create</string>
+    <string name="strEditAlarm">Edit Alarm</string>
+    <string name="strDelete">Delete</string>
+    <string name="strSave">Save</string>
 
 </resources>

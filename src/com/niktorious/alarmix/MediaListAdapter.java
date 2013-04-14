@@ -15,30 +15,30 @@ import android.widget.CheckBox;
 public class MediaListAdapter extends BaseAdapter
 {
     private Context context;
-    private ArrayList<HashMap<String, String>> lstMedia = new ArrayList<HashMap<String, String>>();
-    private boolean[] lstSelected;
+    private ArrayList<HashMap<String, String>> m_lstMedia = new ArrayList<HashMap<String, String>>();
+    private boolean[] m_lstSelected;
     
     // constructor: pass in the list of media that you want to display
     public MediaListAdapter(Context context, ArrayList<HashMap<String, String>> lstMedia)
     {
         this.context     = context;
-        this.lstMedia    = lstMedia;
-        this.lstSelected = new boolean[lstMedia.size()];
+        this.m_lstMedia    = lstMedia;
+        this.m_lstSelected = new boolean[lstMedia.size()];
         
         // note: Here lstSelected is initialized to be all false.
         //       In the future, it may be preferable to persist some of this information
         //       and restore it now.
-        Arrays.fill(lstSelected, false);
+        Arrays.fill(m_lstSelected, false);
     }
 
     // Adapter functions
     public int getCount()
     {
-        return lstMedia.size();
+        return m_lstMedia.size();
     }
     public Object getItem(int ix)
     {
-        return lstMedia.get(ix);
+        return m_lstMedia.get(ix);
     }
     public long getItemId(int ix)
     {
@@ -54,8 +54,8 @@ public class MediaListAdapter extends BaseAdapter
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.medialist_item, parent, false);
         CheckBox chkMedia = (CheckBox) rowView.findViewById(R.id.chkSelected);
-        chkMedia.setText(lstMedia.get(ix).get("mediaTitle"));
-        chkMedia.setChecked(lstSelected[ix]);
+        chkMedia.setText(m_lstMedia.get(ix).get("mediaTitle"));
+        chkMedia.setChecked(m_lstSelected[ix]);
         chkMedia.setClickable(false);
         return rowView;
     }
@@ -63,25 +63,25 @@ public class MediaListAdapter extends BaseAdapter
     // Custom helper functions
     public boolean isEmpty()
     {
-        return lstMedia.isEmpty();
+        return m_lstMedia.isEmpty();
     }
     public void setSelected(int ix, boolean isSelected)
     {
-        lstSelected[ix] = isSelected;
+        m_lstSelected[ix] = isSelected;
     }
     public boolean isSelected(int ix)
     {
-        return lstSelected[ix];
+        return m_lstSelected[ix];
     }
     public ArrayList<String> getFileList()
     {
         ArrayList<String> lstFiles = new ArrayList<String>();
         
-        for (int ix = 0; ix < lstMedia.size(); ix++)
+        for (int ix = 0; ix < m_lstMedia.size(); ix++)
         {
-            if (lstSelected[ix])
+            if (m_lstSelected[ix])
             {
-                lstFiles.add(lstMedia.get(ix).get("mediaPath"));
+                lstFiles.add(m_lstMedia.get(ix).get("mediaPath"));
             }
         }
         

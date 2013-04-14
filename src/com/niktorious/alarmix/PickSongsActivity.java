@@ -12,9 +12,9 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 
 
-public class PickSongsActivity extends Activity {
-    
-    private MediaListAdapter listAdapter;
+public class PickSongsActivity extends Activity
+{
+    private MediaListAdapter m_listAdapter;
 
     /** Called when the activity is first created. */
     @Override
@@ -27,9 +27,9 @@ public class PickSongsActivity extends Activity {
         
         ListView mediaListView = (ListView) findViewById(R.id.mediaListView);
         
-        listAdapter = new MediaListAdapter(this, manager.getMediaList()); /*manager.getMediaList()*/
+        m_listAdapter = new MediaListAdapter(this, manager.getMediaList()); /*manager.getMediaList()*/
         
-        mediaListView.setAdapter(listAdapter);
+        mediaListView.setAdapter(m_listAdapter);
         
         CheckBox chkAll = (CheckBox) findViewById(R.id.chkAll);
         Button butDone = (Button) findViewById(R.id.butDone);
@@ -37,9 +37,9 @@ public class PickSongsActivity extends Activity {
         mediaListView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int ix, long id) {
                 // switch the selection state of the clicked item
-                boolean isSelected = !listAdapter.isSelected(ix);
-                listAdapter.setSelected(ix, isSelected);
-                listAdapter.notifyDataSetChanged();
+                boolean isSelected = !m_listAdapter.isSelected(ix);
+                m_listAdapter.setSelected(ix, isSelected);
+                m_listAdapter.notifyDataSetChanged();
                 
                 // update state of the 'check all' checkbox
                 // note: The 'check all' checkbox will never auto-update to be checked.
@@ -68,33 +68,17 @@ public class PickSongsActivity extends Activity {
                 {
                     for (int ix = 0; ix < mediaListView.getCount(); ix++)
                     {
-                        listAdapter.setSelected(ix, chkAll.isChecked());
-                        listAdapter.notifyDataSetChanged();
+                        m_listAdapter.setSelected(ix, chkAll.isChecked());
+                        m_listAdapter.notifyDataSetChanged();
                     }
                 }
             }
         });
         
-        // old check all implementation
-        /*chkAll.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                ListView mediaListView = (ListView) findViewById(R.id.mediaListView);
-                // set all items in the list to match this state (check/uncheck)
-                if (null != mediaListView)
-                {
-                    for (int ix = 0; ix < mediaListView.getCount(); ix++)
-                    {
-                        listAdapter.setSelected(ix, isChecked);
-                        listAdapter.notifyDataSetChanged();
-                    }
-                }
-            }
-        });*/
-        
         butDone.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 AlarmixApp app = (AlarmixApp) getApplicationContext();
-                app.getModel().lstMediaPaths = listAdapter.getFileList();
+                app.getModel().lstMediaPaths = m_listAdapter.getFileList();
                 
                 Intent data = new Intent();
                 
