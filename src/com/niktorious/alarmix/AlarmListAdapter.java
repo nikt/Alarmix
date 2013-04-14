@@ -88,6 +88,10 @@ public class AlarmListAdapter extends BaseAdapter
             }
         }
         
+        // Set the alarm name
+        TextView tvName = (TextView) rowView.findViewById(R.id.tvComment);
+        tvName.setText(alarm.strName);
+        
         return rowView;
     }
     
