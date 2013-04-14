@@ -1,6 +1,7 @@
 package com.niktorious.alarmix;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,14 +42,23 @@ public class ViewAlarmsActivity extends Activity
         butDone.setOnClickListener(new OnClickListener() {
             public void onClick(View v)
             {
+                // return to AlarmixActvity
                 finish();
             }
         });
 
     }
     
+    /** Called when the activity is resumed. */
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        listAdapter.notifyDataSetChanged();
+    }
+    
     private void handleClickNewAlarm()
     {
-        //startActivity(new Intent(this, NewAlarmsActivity.class));
+        startActivity(new Intent(this, NewAlarmActivity.class));
     }
 }

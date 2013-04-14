@@ -45,7 +45,26 @@ public class AlarmListAdapter extends BaseAdapter
         
         // Set the time to display correctly
         TextView tvTime = (TextView) rowView.findViewById(R.id.tvTime);
-        tvTime.setText(alarm.dateTarget.getHours() + ":" + alarm.dateTarget.getMinutes());
+        
+        String display = new String();
+        int hours   = alarm.dateTarget.getHours();
+        int minutes = alarm.dateTarget.getMinutes();
+        boolean fAM = true;
+        
+        if (hours > 12)
+        {
+            fAM = false;
+            hours %= 12;
+        }
+        
+        display  = Integer.toString(hours);
+        display += ":";
+        if (minutes < 10) display += "0";
+        display += Integer.toString(minutes);
+        display += " ";
+        display += fAM ? "AM" : "PM";
+
+        tvTime.setText(display);
         
         // Set up the days of week to display correctly
         TextView[] tvDaysOfWeek = new TextView[NUM_DAYS];

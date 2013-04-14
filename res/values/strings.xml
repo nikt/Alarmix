@@ -17,5 +17,11 @@
     <string name="strTimeEx">12:59</string>
     <string name="strCommentEx">comment placeholder</string>
     <string name="strNew">New</string>
+    <string name="strNewAlarm">Set A New Alarm</string>
+    <string name="strAlarmName">Alarm Name:</string>
+    <string name="strNameHint">Name your alarm</string>
+    <string name="strSchedule">Schedule:</string>
+    <string name="strCancel">Cancel</string>
+    <string name="strCreate">Create</string>
 
 </resources>
