@@ -1,7 +1,6 @@
 package com.niktorious.alarmix;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -60,34 +59,42 @@ public class PickSongsActivity extends Activity
         // can't use OnCheckedChangeListener here because I don't want this to be triggered when
         // the user unchecks an item in the list which forces this to also uncheck
         chkAll.setOnClickListener(new OnClickListener() {
-            public void onClick(View view) {
-                ListView mediaListView = (ListView) findViewById(R.id.mediaListView);
-                CheckBox chkAll = (CheckBox) view;
-                // set all items in the list to match this state (check/uncheck)
-                if (null != mediaListView && null != chkAll)
-                {
-                    for (int ix = 0; ix < mediaListView.getCount(); ix++)
-                    {
-                        m_listAdapter.setSelected(ix, chkAll.isChecked());
-                        m_listAdapter.notifyDataSetChanged();
-                    }
-                }
+            public void onClick(View view)
+            {
+                handleClickCheckAll(view);
             }
         });
         
         butDone.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                AlarmixApp app = (AlarmixApp) getApplicationContext();
-                app.getModel().lstMediaPaths = m_listAdapter.getFileList();
-                
-                Intent data = new Intent();
-                
-                // fill data with the media the user has chosen
-                
-                setResult(Activity.RESULT_OK, data);
-                finish();
+            public void onClick(View v)
+            {
+                handleClickDone();
             }
         });
     }
+    
+    // Helpers
+    private void handleClickCheckAll(View view)
+    {
+        ListView mediaListView = (ListView) findViewById(R.id.mediaListView);
+        CheckBox chkAll = (CheckBox) view;
+        // set all items in the list to match this state (check/uncheck)
+        if (null != mediaListView && null != chkAll)
+        {
+            for (int ix = 0; ix < mediaListView.getCount(); ix++)
+            {
+                m_listAdapter.setSelected(ix, chkAll.isChecked());
+                m_listAdapter.notifyDataSetChanged();
+            }
+        }
+    }
 
+    private void handleClickDone()
+    {
+        AlarmixApp app = (AlarmixApp) getApplicationContext();
+        app.saveSelectedMedia(this, m_listAdapter.getFileList());
+        
+        // Return to AlarmixActivity
+        finish();
+    }
 }

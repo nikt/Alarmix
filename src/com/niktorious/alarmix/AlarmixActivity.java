@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class AlarmixActivity extends Activity
 {
-    private final int MEDIA_LIST_REQUEST = 1;
+    //private final int MEDIA_LIST_REQUEST = 1;
     
     /** Called when the activity is first created. */
     @Override
@@ -17,6 +17,9 @@ public class AlarmixActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        AlarmixApp app = (AlarmixApp) getApplicationContext();
+        app.loadSelectedMedia(this);
         
         Button butView = (Button) findViewById(R.id.butViewAlarms);
         Button butPick = (Button) findViewById(R.id.butPickSongs);
@@ -38,8 +41,8 @@ public class AlarmixActivity extends Activity
     
     private void handleClickPickSongs()
     {
-        //startActivity(new Intent(this, PickSongsActivity.class));
-        startActivityForResult(new Intent(this, PickSongsActivity.class), MEDIA_LIST_REQUEST);
+        startActivity(new Intent(this, PickSongsActivity.class));
+        //startActivityForResult(new Intent(this, PickSongsActivity.class), MEDIA_LIST_REQUEST);
     }
     
     private void handleClickViewAlarms()

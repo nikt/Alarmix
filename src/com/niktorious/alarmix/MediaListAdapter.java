@@ -1,7 +1,6 @@
 package com.niktorious.alarmix;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import android.content.Context;
@@ -21,14 +20,23 @@ public class MediaListAdapter extends BaseAdapter
     // constructor: pass in the list of media that you want to display
     public MediaListAdapter(Context context, ArrayList<HashMap<String, String>> lstMedia)
     {
-        this.context     = context;
+        this.context       = context;
         this.m_lstMedia    = lstMedia;
         this.m_lstSelected = new boolean[lstMedia.size()];
         
         // note: Here lstSelected is initialized to be all false.
         //       In the future, it may be preferable to persist some of this information
         //       and restore it now.
-        Arrays.fill(m_lstSelected, false);
+        //Arrays.fill(m_lstSelected, false);
+        // note: this is probably pretty slow in general
+        //       O(n*m) where n is m_lstMedia.size()
+        //              and m is lstSelectedMedia.size()
+        AlarmixApp app = (AlarmixApp) context.getApplicationContext();
+        ArrayList<String> lstSelectedMedia = app.getModel().lstMediaPaths;
+        for (int ix = 0; ix < m_lstMedia.size(); ix++)
+        {
+            m_lstSelected[ix] = lstSelectedMedia.contains(m_lstMedia.get(ix).get("mediaPath"));
+        }
     }
 
     // Adapter functions
