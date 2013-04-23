@@ -83,6 +83,10 @@ public class EditAlarmActivity extends Activity
             m_alarm.fDayOfWeek[i] = togDay[i].isChecked();
         }
         
+        // Update the external list of alarms
+        AlarmixApp app = (AlarmixApp) getApplicationContext();
+        app.saveAlarmList(this, app.getModel().lstAlarms);
+        
         // Return to ViewAlarmsActvity
         finish();
     }
@@ -92,6 +96,9 @@ public class EditAlarmActivity extends Activity
         // Delete the alarm from the global list
         AlarmixApp app = (AlarmixApp) getApplicationContext();
         app.getModel().lstAlarms.remove(m_ix);
+        
+        // Update the external list of alarms
+        app.saveAlarmList(this, app.getModel().lstAlarms);
         
         // Return to ViewAlarmsActvity
         finish();

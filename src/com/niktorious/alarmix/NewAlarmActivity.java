@@ -77,6 +77,9 @@ public class NewAlarmActivity extends Activity
         AlarmixApp app = (AlarmixApp) getApplicationContext();
         app.getModel().lstAlarms.add(alarm);
         
+        // Save the updated alarm list
+        app.saveAlarmList(this, app.getModel().lstAlarms);
+        
         // return to ViewAlarmsActvity
         finish();
     }
