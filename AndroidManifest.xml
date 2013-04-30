@@ -6,6 +6,7 @@
 
     <uses-sdk android:minSdkVersion="10" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:name=".AlarmixApp"
@@ -13,34 +14,36 @@
         android:label="@string/strAppName"
         android:allowBackup="true"
         android:debuggable="true"  >
+        
+        <receiver android:name="com.niktorious.alarmix.AlarmReceiver"></receiver>
+        
         <activity
             android:name=".AlarmixActivity"
             android:label="@string/strAppName" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         
         <activity
-            android:name=".PickSongsActivity"
-            android:label="@string/strPickSongs" >
+            android:name=".PickSongsActivity" >
         </activity>
         
         <activity
-            android:name=".ViewAlarmsActivity"
-            android:label="@string/strViewAlarms" >
+            android:name=".ViewAlarmsActivity" >
         </activity>
         
         <activity
-            android:name=".NewAlarmActivity"
-            android:label="@string/strNewAlarm" >
+            android:name=".NewAlarmActivity" >
         </activity>
         
         <activity
-            android:name=".EditAlarmActivity"
-            android:label="@string/strNewAlarm" >
+            android:name=".EditAlarmActivity" >
+        </activity>
+        
+        <activity
+            android:name=".WakeUpActivity" >
         </activity>
     </application>
 

@@ -26,5 +26,8 @@
     <string name="strEditAlarm">Edit Alarm</string>
     <string name="strDelete">Delete</string>
     <string name="strSave">Save</string>
+    <string name="strWakeUp">Wake Up!</string>
+    <string name="strSnooze">Snooze</string>
+    <string name="strDismiss">Dismiss</string>
 
 </resources>

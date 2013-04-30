@@ -21,6 +21,7 @@ public class AlarmixActivity extends Activity
         AlarmixApp app = (AlarmixApp) getApplicationContext();
         app.loadSelectedMedia(this);
         app.loadAlarmList(this);
+        app.loadGlobalId(this);
         
         Button butView = (Button) findViewById(R.id.butViewAlarms);
         Button butPick = (Button) findViewById(R.id.butPickSongs);

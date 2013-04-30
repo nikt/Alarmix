@@ -13,6 +13,8 @@ import android.content.Context;
 
 
 public class AlarmixApp extends Application {
+    private final int    NUM_DAYS                 = 7;
+    private final String FILE_NAME_GLOBAL_ID      = "globalId";
     private final String FILE_NAME_SELECTED_MEDIA = "selectedMedia";
     private final String FILE_NAME_ALARM_LIST     = "alarmList";
     private final char   LIST_DELIMITER           = '\n';  // not sure which character is best to use here
@@ -27,6 +29,80 @@ public class AlarmixApp extends Application {
     public Model getModel()
     {
         return model;
+    }
+    
+    public int getNewId(Context context)
+    {
+        model.gId++;
+        saveGlobalId(context, model.gId);
+        return model.gId;
+    }
+    
+    // This function is used to save the global Id counter
+    public void saveGlobalId(Context context, int gId)
+    {
+        model.gId = gId;
+        
+        try
+        {
+            FileOutputStream os = context.openFileOutput(FILE_NAME_GLOBAL_ID, MODE_PRIVATE);
+            
+            // build the string which will be written to this stream
+            String strOutput = Integer.toString(gId);
+            
+            // write to the output stream
+            os.write(strOutput.getBytes());
+            
+            // clean up
+            os.close();
+        }
+        catch (FileNotFoundException e)
+        {
+            // please make sure you are calling this by passing in an Activity context...
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            // something went wrong when writing to file?
+            e.printStackTrace();
+        }
+    }
+    
+    // This function is used to load the list of selected media from internal storage
+    // This should only be called from AlarmixActivity
+    public void loadGlobalId(Context context)
+    {
+        try
+        {
+            model.gId = 0;
+            
+            FileInputStream is = context.openFileInput(FILE_NAME_GLOBAL_ID);
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            
+            // read form the stream to build the media list
+            String line;
+            if ((line = br.readLine()) != null)
+            {
+                if (!line.isEmpty()) model.gId = Integer.parseInt(line);
+            }
+            
+            // clean up
+            br.close();
+            isr.close();
+            is.close();
+        }
+        catch (FileNotFoundException e)
+        {
+            // maybe the file hasn't been created yet
+            // in that case, leave model.lstMediaPaths as an empty list
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            // something went wrong when reading from file?
+            e.printStackTrace();
+        }
     }
     
     // This function is used to save the list of selected media to internal storage
@@ -171,35 +247,44 @@ public class AlarmixApp extends Application {
             {
                 if (!line.isEmpty())
                 {
-                    Alarm alarm = new Alarm();
+                    int nId, nHour, nMinute;
+                    String strName;
+                    boolean[] fDayOfWeek = new boolean[NUM_DAYS];
+                    
                     int nStart = 0;
                     int nEnd   = line.indexOf(DATA_DELIMITER);
                     
+                    // Populate Id field
+                    nId = Integer.parseInt(line.substring(nStart, nEnd));
+                    
+                    nStart = nEnd + 1;
+                    nEnd   = line.indexOf(DATA_DELIMITER, nStart);
+                    
                     // Populate hour field
-                    alarm.nHour = Integer.parseInt(line.substring(nStart, nEnd));
+                    nHour = Integer.parseInt(line.substring(nStart, nEnd));
                     
                     nStart = nEnd + 1;
                     nEnd   = line.indexOf(DATA_DELIMITER, nStart);
                     
                     // Populate minute field
-                    alarm.nMinute = Integer.parseInt(line.substring(nStart, nEnd));
+                    nMinute = Integer.parseInt(line.substring(nStart, nEnd));
                     
                     nStart = nEnd + 1;
                     nEnd   = line.indexOf(DATA_DELIMITER, nStart);
                     
                     // Populate name field
-                    alarm.strName = line.substring(nStart, nEnd);
+                    strName = line.substring(nStart, nEnd);
                     
                     nStart = nEnd + 1;
                     nEnd   = line.indexOf(DATA_DELIMITER, nStart);
                     
                     // Populate schedule fields
-                    for (int ix = 0; ix < alarm.fDayOfWeek.length; ix++)
+                    for (int ix = 0; ix < NUM_DAYS; ix++)
                     {
-                        alarm.fDayOfWeek[ix] = (line.charAt(nStart + ix) == '1') ? true : false;
+                        fDayOfWeek[ix] = (line.charAt(nStart + ix) == '1') ? true : false;
                     }
                     
-                    lstAlarms.add(alarm);
+                    lstAlarms.add(new Alarm(nId, nHour, nMinute, strName, fDayOfWeek));
                 }
             }
             

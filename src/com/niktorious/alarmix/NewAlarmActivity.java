@@ -3,6 +3,10 @@ package com.niktorious.alarmix;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,7 +18,7 @@ import android.widget.ToggleButton;
 
 public class NewAlarmActivity extends Activity
 {
-    final private int NUM_DAYS = 7;
+    private final int NUM_DAYS = 7;
     
     /** Called when the activity is first created. */
     @Override
@@ -55,7 +59,7 @@ public class NewAlarmActivity extends Activity
     private void handleClickCreate()
     {
         // Create new alarm
-        Alarm alarm = new Alarm();
+        Alarm alarm = new Alarm(this);
         
         // Populate dateTarget
         TimePicker timePicker = (TimePicker) findViewById(R.id.tpNewTime);
@@ -79,6 +83,17 @@ public class NewAlarmActivity extends Activity
         
         // Save the updated alarm list
         app.saveAlarmList(this, app.getModel().lstAlarms);
+        
+        // Set our alarm using the AlarmManager
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        
+        // Create the corresponding PendingIntent object
+        PendingIntent alarmPI = PendingIntent.getBroadcast(this, alarm.nId, alarmIntent, 0);
+        
+        // Register the alarm with the alarm manager
+        Calendar cal = alarm.getNextCalendar();
+        alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), alarmPI);
         
         // return to ViewAlarmsActvity
         finish();
