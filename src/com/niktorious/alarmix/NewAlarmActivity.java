@@ -93,7 +93,10 @@ public class NewAlarmActivity extends Activity
         
         // Register the alarm with the alarm manager
         Calendar cal = alarm.getNextCalendar();
-        alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), alarmPI);
+        if (cal != null)
+        {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), alarmPI);
+        }
         
         // return to ViewAlarmsActvity
         finish();

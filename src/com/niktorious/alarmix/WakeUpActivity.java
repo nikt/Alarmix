@@ -12,6 +12,7 @@ import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -34,11 +35,6 @@ public class WakeUpActivity extends Activity
                              WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
                              WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON   |
                              WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON   );
-        
-        // Display song title
-        TextView tvMarqueeTitle = (TextView) findViewById(R.id.tvMarqueeTitle);
-        tvMarqueeTitle.setSelected(true);
-        tvMarqueeTitle.setMarqueeRepeatLimit(-1);
         
         // Hook up the Snooze and Dismiss buttons
         Button butSnooze  = (Button) findViewById(R.id.butSnooze);
@@ -81,7 +77,9 @@ public class WakeUpActivity extends Activity
                 file = new File(strPath);
                 
                 // Set up the display to show the current song
-                tvMarqueeTitle.setText(strPath);
+                TextView tvMarqueeTitle = (TextView) findViewById(R.id.tvMarqueeTitle);
+                tvMarqueeTitle.setText(new String(strPath));
+                tvMarqueeTitle.setSelected(true);
             }
             
             if (file != null && file.exists())

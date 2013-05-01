@@ -9,7 +9,8 @@ public class WakeLocker
     private static final String LOCK_NAME_STATIC = "com.niktorious.alarmix.static";
     private static PowerManager.WakeLock m_wakeLock;
 
-    public static void acquire(Context context) {
+    public static void acquire(Context context)
+    {
         release();
 
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
@@ -18,7 +19,8 @@ public class WakeLocker
         m_wakeLock.acquire();
     }
 
-    public static void release() {
+    public static void release()
+    {
         if (m_wakeLock != null) m_wakeLock.release();
         m_wakeLock = null;
     }

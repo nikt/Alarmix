@@ -102,7 +102,10 @@ public class EditAlarmActivity extends Activity
         
         // Register the alarm with the alarm manager
         Calendar cal = m_alarm.getNextCalendar();
-        alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), alarmPI);
+        if (cal != null)
+        {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), alarmPI);
+        }
         
         // Return to ViewAlarmsActvity
         finish();
@@ -110,6 +113,14 @@ public class EditAlarmActivity extends Activity
     
     private void handleClickDelete()
     {
+        // Create the corresponding PendingIntent object
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        PendingIntent alarmPI = PendingIntent.getBroadcast(this, m_alarm.nId, alarmIntent, 0);
+        
+        // Cancel the alarm with the alarm manager
+        alarmManager.cancel(alarmPI);
+        
         // Delete the alarm from the global list
         AlarmixApp app = (AlarmixApp) getApplicationContext();
         app.getModel().lstAlarms.remove(m_ix);
