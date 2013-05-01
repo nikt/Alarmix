@@ -41,8 +41,9 @@ public class Alarm implements Parcelable {
     {
         Calendar cal = Calendar.getInstance();
         
-        cal.set(Calendar.HOUR,   nHour  );
-        cal.set(Calendar.MINUTE, nMinute);
+        cal.set(Calendar.HOUR_OF_DAY, nHour  );
+        cal.set(Calendar.MINUTE,      nMinute);
+        cal.set(Calendar.SECOND,      0      );
         
         if (cal.after(Calendar.getInstance()))
         {

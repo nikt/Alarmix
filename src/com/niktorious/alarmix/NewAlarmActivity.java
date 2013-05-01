@@ -32,7 +32,7 @@ public class NewAlarmActivity extends Activity
         
         Calendar cal = Calendar.getInstance(); 
         
-        timePicker.setCurrentHour(cal.get(Calendar.HOUR) + 1);
+        timePicker.setCurrentHour(cal.get(Calendar.HOUR_OF_DAY) + 1);
         timePicker.setCurrentMinute(cal.get(Calendar.MINUTE));
         
         // Hook up the Create and Cancel buttons

@@ -1,6 +1,12 @@
 package com.niktorious.alarmix;
 
+import java.util.Calendar;
+
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -86,6 +92,17 @@ public class EditAlarmActivity extends Activity
         // Update the external list of alarms
         AlarmixApp app = (AlarmixApp) getApplicationContext();
         app.saveAlarmList(this, app.getModel().lstAlarms);
+        
+        // Set our alarm using the AlarmManager
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        
+        // Create the corresponding PendingIntent object
+        PendingIntent alarmPI = PendingIntent.getBroadcast(this, m_alarm.nId, alarmIntent, 0);
+        
+        // Register the alarm with the alarm manager
+        Calendar cal = m_alarm.getNextCalendar();
+        alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), alarmPI);
         
         // Return to ViewAlarmsActvity
         finish();

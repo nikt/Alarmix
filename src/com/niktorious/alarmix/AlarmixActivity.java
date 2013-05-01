@@ -44,7 +44,6 @@ public class AlarmixActivity extends Activity
     private void handleClickPickSongs()
     {
         startActivity(new Intent(this, PickSongsActivity.class));
-        //startActivityForResult(new Intent(this, PickSongsActivity.class), MEDIA_LIST_REQUEST);
     }
     
     private void handleClickViewAlarms()

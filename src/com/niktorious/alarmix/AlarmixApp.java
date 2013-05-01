@@ -92,6 +92,11 @@ public class AlarmixApp extends Application {
             isr.close();
             is.close();
         }
+        catch (NumberFormatException e)
+        {
+            // the number you are parsing is wrong? check saveGlobalId just in case
+            e.printStackTrace();
+        }
         catch (FileNotFoundException e)
         {
             // maybe the file hasn't been created yet
@@ -198,6 +203,8 @@ public class AlarmixApp extends Application {
                 {
                     strOutput += LIST_DELIMITER;
                 }
+                strOutput += alarm.nId;
+                strOutput += DATA_DELIMITER;
                 strOutput += alarm.nHour;
                 strOutput += DATA_DELIMITER;
                 strOutput += alarm.nMinute;
@@ -294,6 +301,11 @@ public class AlarmixApp extends Application {
             br.close();
             isr.close();
             is.close();
+        }
+        catch (NumberFormatException e)
+        {
+            // the number you are parsing is wrong? check saveAlarmList just in case
+            e.printStackTrace();
         }
         catch (FileNotFoundException e)
         {

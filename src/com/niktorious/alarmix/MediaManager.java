@@ -26,13 +26,13 @@ public class MediaManager
     // find all media using a content provider
     public void buildMediaList()
     {
-        String[] request = {MediaStore.Audio.Media.TITLE, MediaStore.Audio.Media.DISPLAY_NAME};
+        String[] request = {MediaStore.Audio.Media.TITLE, MediaStore.Audio.Media.DATA};
         
         ContentResolver contentResolver = context.getContentResolver();
         Cursor cur = contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, request, null, null, null);
         
         int ixName = cur.getColumnIndex(MediaStore.Audio.Media.TITLE);
-        int ixFile = cur.getColumnIndex(MediaStore.Audio.Media.DISPLAY_NAME);
+        int ixFile = cur.getColumnIndex(MediaStore.Audio.Media.DATA);
         
         for (cur.moveToFirst(); !cur.isAfterLast(); cur.moveToNext())
         {
