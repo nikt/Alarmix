@@ -17,11 +17,12 @@ public class Alarm implements Parcelable {
     public String    strName;                              // the name of the alarm (user-defined)
     public boolean[] fDayOfWeek = new boolean[NUM_DAYS];   // boolean array holding which days of week the alarm should go off
     
-    public Alarm(Context context)
+    private boolean m_fIsOneShot = true;
+    
+    // Contructors
+    private Alarm()
     {
-        AlarmixApp app = (AlarmixApp) context.getApplicationContext();
-        
-        this.nId     = app.getNewId(context);
+        this.nId     = 0;
         this.nHour   = 0;
         this.nMinute = 0;
         this.strName = new String();
@@ -35,6 +36,21 @@ public class Alarm implements Parcelable {
         this.nMinute    = nMinute;
         this.strName    = strName;
         this.fDayOfWeek = fDayOfWeek;
+        
+        for (boolean f : fDayOfWeek)
+        {
+           if (f)
+           {
+               m_fIsOneShot = false;
+               break;
+           }
+        }
+    }
+    
+    // Helpers
+    public final boolean isOneShot()
+    {
+        return m_fIsOneShot;
     }
     
     public Calendar getNextCalendar()
@@ -45,9 +61,14 @@ public class Alarm implements Parcelable {
         cal.set(Calendar.MINUTE,      nMinute);
         cal.set(Calendar.SECOND,      0      );
         
-        if (cal.after(Calendar.getInstance()))
+        if (isOneShot())
         {
-            // Early out: if the alarm is set for later today
+            if (!cal.after(Calendar.getInstance()))
+            {
+                // If the alarm isn't set for later today, set it to tomorrow
+                cal.add(Calendar.DATE, 1);
+            }
+            
             return cal;
         }
         else
@@ -67,7 +88,7 @@ public class Alarm implements Parcelable {
             
             if (ix == nCurrentDay)
             {
-                // If the user didn't set any schedule, treat this as a one-time alarm
+                // If the user didn't set any schedule, why didn't this get flagged as one-shot?
                 return null;
             }
         }

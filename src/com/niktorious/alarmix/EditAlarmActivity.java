@@ -13,13 +13,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 
 public class EditAlarmActivity extends Activity
 {
     final private int NUM_DAYS = 7;
-    private int m_ix;
     private Alarm m_alarm;
     
     /** Called when the activity is first created. */
@@ -31,8 +31,16 @@ public class EditAlarmActivity extends Activity
         
         // Get the alarm out of the intent
         AlarmixApp app = (AlarmixApp) getApplicationContext();
-        m_ix = getIntent().getIntExtra("alarmIndex", 0);
-        m_alarm = app.getModel().lstAlarms.get(m_ix);
+        m_alarm = app.getAlarmById(getIntent().getIntExtra("targetId", 0));
+        
+        if (m_alarm == null)
+        {
+            Toast toast = Toast.makeText(this, "Oops, Couldn't find that alarm!", Toast.LENGTH_SHORT);
+            toast.show();
+            
+            // Early out: not much to do without an alarm
+            finish();
+        }
         
         // Set the time picker to show the time stored in the alarm
         TimePicker timePicker = (TimePicker) findViewById(R.id.tpEditTime);
@@ -96,16 +104,14 @@ public class EditAlarmActivity extends Activity
         // Set our alarm using the AlarmManager
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        alarmIntent.putExtra("alarmId", m_alarm.nId);
         
         // Create the corresponding PendingIntent object
-        PendingIntent alarmPI = PendingIntent.getBroadcast(this, m_alarm.nId, alarmIntent, 0);
+        PendingIntent alarmPI = PendingIntent.getBroadcast(this, m_alarm.nId, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         
         // Register the alarm with the alarm manager
         Calendar cal = m_alarm.getNextCalendar();
-        if (cal != null)
-        {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), alarmPI);
-        }
+        alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), alarmPI);
         
         // Return to ViewAlarmsActvity
         finish();
@@ -123,7 +129,7 @@ public class EditAlarmActivity extends Activity
         
         // Delete the alarm from the global list
         AlarmixApp app = (AlarmixApp) getApplicationContext();
-        app.getModel().lstAlarms.remove(m_ix);
+        app.deleteAlarmById(m_alarm.nId);
         
         // Update the external list of alarms
         app.saveAlarmList(this, app.getModel().lstAlarms);

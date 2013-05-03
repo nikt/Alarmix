@@ -51,10 +51,14 @@ public class AlarmListAdapter extends BaseAdapter
         int minutes = alarm.nMinute;
         boolean fAM = true;
         
-        if (hours > 12)
+        if (hours >= 12)
         {
             fAM = false;
             hours %= 12;
+        }
+        if (hours == 0)
+        {
+            hours = 12;
         }
         
         display  = Integer.toString(hours);

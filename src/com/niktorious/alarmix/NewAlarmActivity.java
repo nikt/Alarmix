@@ -58,27 +58,26 @@ public class NewAlarmActivity extends Activity
     // Helpers
     private void handleClickCreate()
     {
-        // Create new alarm
-        Alarm alarm = new Alarm(this);
-        
-        // Populate dateTarget
+        AlarmixApp app = (AlarmixApp) getApplicationContext();
         TimePicker timePicker = (TimePicker) findViewById(R.id.tpNewTime);
-        alarm.nHour   = timePicker.getCurrentHour();
-        alarm.nMinute = timePicker.getCurrentMinute();
-        
-        // Populate strName
         EditText fldAlarmName = (EditText) findViewById(R.id.fldNewAlarmName);
-        alarm.strName = fldAlarmName.getText().toString();
         
         // Populate fDayOfWeek
         ToggleButton[] togDay = getScheduleToggleButtons();
+        boolean[] fDayOfWeek = new boolean[NUM_DAYS];
         for (int i = 0; i < NUM_DAYS; i++)
         {
-            alarm.fDayOfWeek[i] = togDay[i].isChecked();
+            fDayOfWeek[i] = togDay[i].isChecked();
         }
         
+        // Create corresponding alarm
+        Alarm alarm = new Alarm(app.getNewId(this),
+                                timePicker.getCurrentHour(),
+                                timePicker.getCurrentMinute(),
+                                fldAlarmName.getText().toString(),
+                                fDayOfWeek);
+        
         // Add the new alarm to our list
-        AlarmixApp app = (AlarmixApp) getApplicationContext();
         app.getModel().lstAlarms.add(alarm);
         
         // Save the updated alarm list
@@ -87,16 +86,14 @@ public class NewAlarmActivity extends Activity
         // Set our alarm using the AlarmManager
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        alarmIntent.putExtra("alarmId", alarm.nId);
         
         // Create the corresponding PendingIntent object
-        PendingIntent alarmPI = PendingIntent.getBroadcast(this, alarm.nId, alarmIntent, 0);
+        PendingIntent alarmPI = PendingIntent.getBroadcast(this, alarm.nId, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         
         // Register the alarm with the alarm manager
         Calendar cal = alarm.getNextCalendar();
-        if (cal != null)
-        {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), alarmPI);
-        }
+        alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), alarmPI);
         
         // return to ViewAlarmsActvity
         finish();

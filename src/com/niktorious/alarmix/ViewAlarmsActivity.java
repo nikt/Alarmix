@@ -73,8 +73,10 @@ public class ViewAlarmsActivity extends Activity
     {
         // start EditAlarmActivity for the selected alarm
         Intent data = new Intent(this, EditAlarmActivity.class);
-        //data.putExtra("alarm", (Alarm) listAdapter.getItem(ix));
-        data.putExtra("alarmIndex", ix);
+        
+        AlarmixApp app = (AlarmixApp) getApplicationContext();
+        data.putExtra("targetId", app.getModel().lstAlarms.get(ix).nId);
+        
         startActivity(data);
     }
 }

@@ -19,29 +19,54 @@ public class AlarmixApp extends Application {
     private final String FILE_NAME_ALARM_LIST     = "alarmList";
     private final char   LIST_DELIMITER           = '\n';  // not sure which character is best to use here
     private final char   DATA_DELIMITER           = ';';  // not sure which character is best to use here
-    private Model model;
+    private Model m_model;
     
     public AlarmixApp()
     {
-        model = new Model();
+        m_model = new Model();
     }
     
     public Model getModel()
     {
-        return model;
+        return m_model;
     }
     
     public int getNewId(Context context)
     {
-        model.gId++;
-        saveGlobalId(context, model.gId);
-        return model.gId;
+        m_model.gId++;
+        saveGlobalId(context, m_model.gId);
+        return m_model.gId;
+    }
+    
+    public Alarm getAlarmById(int nId)
+    {
+        for (int ix = 0; ix < m_model.lstAlarms.size(); ix++)
+        {
+            if (nId == m_model.lstAlarms.get(ix).nId)
+            {
+                return m_model.lstAlarms.get(ix);
+            }
+        }
+        
+        return null;
+    }
+    
+    public void deleteAlarmById(int nId)
+    {
+        for (int ix = 0; ix < m_model.lstAlarms.size(); ix++)
+        {
+            if (nId == m_model.lstAlarms.get(ix).nId)
+            {
+                m_model.lstAlarms.remove(ix);
+                break;
+            }
+        }
     }
     
     // This function is used to save the global Id counter
     public void saveGlobalId(Context context, int gId)
     {
-        model.gId = gId;
+        m_model.gId = gId;
         
         try
         {
@@ -74,7 +99,7 @@ public class AlarmixApp extends Application {
     {
         try
         {
-            model.gId = 0;
+            m_model.gId = 0;
             
             FileInputStream is = context.openFileInput(FILE_NAME_GLOBAL_ID);
             InputStreamReader isr = new InputStreamReader(is);
@@ -84,7 +109,7 @@ public class AlarmixApp extends Application {
             String line;
             if ((line = br.readLine()) != null)
             {
-                if (!line.isEmpty()) model.gId = Integer.parseInt(line);
+                if (!line.isEmpty()) m_model.gId = Integer.parseInt(line);
             }
             
             // clean up
@@ -113,7 +138,7 @@ public class AlarmixApp extends Application {
     // This function is used to save the list of selected media to internal storage
     public void saveSelectedMedia(Context context, ArrayList<String> lstMedia)
     {
-        model.lstMediaPaths = lstMedia;
+        m_model.lstMediaPaths = lstMedia;
         
         try
         {
@@ -166,7 +191,7 @@ public class AlarmixApp extends Application {
                 if (!line.isEmpty()) lstMedia.add(new String(line));
             }
             
-            model.lstMediaPaths = lstMedia;
+            m_model.lstMediaPaths = lstMedia;
             
             // clean up
             br.close();
@@ -189,7 +214,7 @@ public class AlarmixApp extends Application {
     // This function is used to save the list of alarms to internal storage
     public void saveAlarmList(Context context, ArrayList<Alarm> lstAlarms)
     {
-        model.lstAlarms = lstAlarms;
+        m_model.lstAlarms = lstAlarms;
         
         try
         {
@@ -295,7 +320,7 @@ public class AlarmixApp extends Application {
                 }
             }
             
-            model.lstAlarms = lstAlarms;
+            m_model.lstAlarms = lstAlarms;
             
             // clean up
             br.close();
