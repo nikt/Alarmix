@@ -220,7 +220,7 @@ public class WakeUpActivity extends Activity
         
         // Register the alarm with the alarm manager
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.MINUTE, 1);
+        cal.add(Calendar.MINUTE, 10);
         alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), alarmPI);
         
         goToHome();
