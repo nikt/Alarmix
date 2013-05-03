@@ -1,127 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
 
-    <TextView
-        android:id="@+id/tvNewAlarm"
-        android:layout_width="wrap_content"
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center_horizontal"
+      android:orientation="vertical" >
+
+      <TextView
+          android:id="@+id/tvNewAlarm"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/strNewAlarm"
+          android:textAppearance="?android:attr/textAppearanceLarge"
+          android:padding="5dip" />
+      
+      <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/strNewAlarm"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-    
-    <LinearLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:orientation="horizontal" >
-	    
-        <Button
-	        android:id="@+id/butCancel"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@string/strCancel" />
+        android:orientation="horizontal" >
         
-        <Button
-            android:id="@+id/butCreate"
+          <Button
+            android:id="@+id/butCancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/strCreate" />
-	    
-    </LinearLayout>
+            android:text="@string/strCancel" />
+          
+          <Button
+              android:id="@+id/butCreate"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="@string/strCreate" />
+        
+      </LinearLayout>
 
-    <TimePicker
-        android:id="@+id/tpNewTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/tvNewAlarmName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/strAlarmName"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/fldNewAlarmName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:singleLine="true"
-        android:maxLength="16"
-        android:hint="@string/strNameHint" >
-    </EditText>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:orientation="vertical" >
+          
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="2"
+          android:gravity="center"
+          android:orientation="horizontal" >
+          <TimePicker
+              android:id="@+id/tpNewTime"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:padding="15dip" />
+        </LinearLayout>
     
-    <TextView
-        android:id="@+id/tvSchedule"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/strSchedule"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:orientation="vertical" >
+          <TextView
+              android:id="@+id/tvNewAlarmName"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/strAlarmName"
+              android:textAppearance="?android:attr/textAppearanceMedium" />
+      
+          <EditText
+              android:id="@+id/fldNewAlarmName"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:ems="10"
+              android:singleLine="true"
+              android:maxLength="16"
+              android:hint="@string/strNameHint" >
+          </EditText>
+        </LinearLayout>
+        
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:orientation="vertical" >
+          <TextView
+              android:id="@+id/tvSchedule"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/strSchedule"
+              android:textAppearance="?android:attr/textAppearanceMedium" />
+      
+          <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+          
+            <ToggleButton
+                android:id="@+id/togNewMon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textOn="@string/strMon"
+                android:textOff="@string/strMon" />
+            
+            <ToggleButton
+                android:id="@+id/togNewTue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textOn="@string/strTue"
+                android:textOff="@string/strTue" />
+            
+            <ToggleButton
+                android:id="@+id/togNewWed"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textOn="@string/strWed"
+                android:textOff="@string/strWed" />
+            
+            <ToggleButton
+                android:id="@+id/togNewThu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textOn="@string/strThu"
+                android:textOff="@string/strThu" />
+            
+            <ToggleButton
+                android:id="@+id/togNewFri"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textOn="@string/strFri"
+                android:textOff="@string/strFri" />
+            
+            <ToggleButton
+                android:id="@+id/togNewSat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textOn="@string/strSat"
+                android:textOff="@string/strSat" />
+            
+            <ToggleButton
+                android:id="@+id/togNewSun"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textOn="@string/strSun"
+                android:textOff="@string/strSun" />
+          
+          </LinearLayout>
+        </LinearLayout>
+      </LinearLayout>
 
-    <LinearLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:orientation="horizontal" >
-    
-	    <ToggleButton
-	        android:id="@+id/togNewMon"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:textOn="@string/strMon"
-	        android:textOff="@string/strMon" />
-	    
-	    <ToggleButton
-	        android:id="@+id/togNewTue"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:textOn="@string/strTue"
-	        android:textOff="@string/strTue" />
-	    
-	    <ToggleButton
-	        android:id="@+id/togNewWed"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:textOn="@string/strWed"
-	        android:textOff="@string/strWed" />
-	    
-	    <ToggleButton
-	        android:id="@+id/togNewThu"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:textOn="@string/strThu"
-	        android:textOff="@string/strThu" />
-	    
-	    <ToggleButton
-	        android:id="@+id/togNewFri"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:textOn="@string/strFri"
-	        android:textOff="@string/strFri" />
-	    
-	    <ToggleButton
-	        android:id="@+id/togNewSat"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:textOn="@string/strSat"
-	        android:textOff="@string/strSat" />
-	    
-	    <ToggleButton
-	        android:id="@+id/togNewSun"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:textOn="@string/strSun"
-	        android:textOff="@string/strSun" />
-    
-    </LinearLayout>
-
-</LinearLayout>
+  </LinearLayout>
+</ScrollView>

@@ -2,27 +2,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:gravity="center"
     android:orientation="vertical" >
-    
 
-	<TextView
-	    android:id="@+id/titleTextView"
-	    android:layout_width="wrap_content"
+    <LinearLayout
+	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:text="@string/strAppName"
-	    android:textAppearance="?android:attr/textAppearanceLarge" />
+	    android:layout_weight="1"
+	    android:gravity="center"
+	    android:orientation="horizontal" >
+		<TextView
+		    android:id="@+id/titleTextView"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/strAppName"
+		    android:textAppearance="?android:attr/textAppearanceLarge" />
+	</LinearLayout>
 
-	<Button
-	    android:id="@+id/butViewAlarms"
-	    android:layout_width="wrap_content"
+	<LinearLayout
+	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:text="@string/strViewAlarms" />
+	    android:layout_weight="1"
+	    android:gravity="center"
+	    android:orientation="horizontal" >
+		<Button
+		    android:id="@+id/butViewAlarms"
+		    android:layout_width="150dip"
+		    android:layout_height="wrap_content"
+		    android:text="@string/strViewAlarms" />
+	</LinearLayout>
 	
-	<Button
-	    android:id="@+id/butPickSongs"
-	    android:layout_width="wrap_content"
+	<LinearLayout
+	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:text="@string/strPickSongs" />
+	    android:layout_weight="1"
+	    android:gravity="center"
+	    android:orientation="horizontal" >
+		<Button
+		    android:id="@+id/butPickSongs"
+		    android:layout_width="150dip"
+		    android:layout_height="wrap_content"
+		    android:text="@string/strPickSongs" />
+	</LinearLayout>
 
 
 </LinearLayout>

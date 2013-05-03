@@ -83,6 +83,22 @@ public class EditAlarmActivity extends Activity
         });
     }
     
+    // Override onResume because the TimePicker does not repaint properly after an orientation change
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        TimePicker timePicker = (TimePicker) findViewById(R.id.tpEditTime);
+        
+        int nHour   = timePicker.getCurrentHour();
+        int nMinute = timePicker.getCurrentMinute();
+        
+        timePicker.setCurrentHour(0);
+        timePicker.setCurrentMinute(0);
+        timePicker.setCurrentHour(nHour);
+        timePicker.setCurrentMinute(nMinute);
+    }
+    
     // Helpers
     private void handleClickSave()
     {
