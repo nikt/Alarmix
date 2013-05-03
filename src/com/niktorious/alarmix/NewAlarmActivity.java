@@ -78,7 +78,7 @@ public class NewAlarmActivity extends Activity
                                 fDayOfWeek);
         
         // Add the new alarm to our list
-        app.getModel().lstAlarms.add(alarm);
+        app.addAlarm(alarm);
         
         // Save the updated alarm list
         app.saveAlarmList(this, app.getModel().lstAlarms);

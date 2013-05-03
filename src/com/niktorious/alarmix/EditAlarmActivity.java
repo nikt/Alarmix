@@ -21,6 +21,8 @@ public class EditAlarmActivity extends Activity
 {
     final private int NUM_DAYS = 7;
     private Alarm m_alarm;
+    private int   m_nHour;
+    private int   m_nMinute;
     
     /** Called when the activity is first created. */
     @Override
@@ -47,6 +49,9 @@ public class EditAlarmActivity extends Activity
         
         timePicker.setCurrentHour(m_alarm.nHour);
         timePicker.setCurrentMinute(m_alarm.nMinute);
+        
+        m_nHour   = m_alarm.nHour;
+        m_nMinute = m_alarm.nMinute;
         
         // Set the Name of the alarm
         EditText fldAlarmName = (EditText) findViewById(R.id.fldEditAlarmName);
@@ -81,6 +86,8 @@ public class EditAlarmActivity extends Activity
     // Helpers
     private void handleClickSave()
     {
+        AlarmixApp app = (AlarmixApp) getApplicationContext();
+        
         // Populate dateTarget
         TimePicker timePicker = (TimePicker) findViewById(R.id.tpEditTime);
         m_alarm.nHour   = timePicker.getCurrentHour();
@@ -97,8 +104,17 @@ public class EditAlarmActivity extends Activity
             m_alarm.fDayOfWeek[i] = togDay[i].isChecked();
         }
         
+        // Update the internal list of alarms
+        // (only update if the time has been changed otherwise user might be surprised by and ordering change)
+        if ((m_nHour != m_alarm.nHour) || (m_nMinute != m_alarm.nMinute))
+        {
+            //  Note: This seems quite slow... O(n) time
+            //        Might be more efficient to bubble up/down
+            app.deleteAlarmById(m_alarm.nId);
+            app.addAlarm(m_alarm);
+        }
+        
         // Update the external list of alarms
-        AlarmixApp app = (AlarmixApp) getApplicationContext();
         app.saveAlarmList(this, app.getModel().lstAlarms);
         
         // Set our alarm using the AlarmManager

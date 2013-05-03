@@ -63,6 +63,23 @@ public class AlarmixApp extends Application {
         }
     }
     
+    public void addAlarm(Alarm alarm)
+    {
+        for (int ix = 0; ix < m_model.lstAlarms.size(); ix++)
+        {
+            Alarm current = m_model.lstAlarms.get(ix);
+            if (alarm.nHour < current.nHour ||
+                ((alarm.nHour == current.nHour) && (alarm.nMinute < current.nMinute)))
+            {
+                m_model.lstAlarms.add(ix, alarm);
+                return;
+            }
+        }
+        
+        // If we haven't already found a spot for the alarm, put it at the end
+        m_model.lstAlarms.add(alarm);
+    }
+    
     // This function is used to save the global Id counter
     public void saveGlobalId(Context context, int gId)
     {
