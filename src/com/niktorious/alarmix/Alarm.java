@@ -68,8 +68,6 @@ public class Alarm implements Parcelable {
                 // If the alarm isn't set for later today, set it to tomorrow
                 cal.add(Calendar.DATE, 1);
             }
-            
-            return cal;
         }
         else
         {
@@ -77,20 +75,21 @@ public class Alarm implements Parcelable {
             //  The Calendar object enumerates the days from Sunday = 1 to Saturday = 7
             //  The Calendar value for Monday is 2, but I treat Monday as 0
             final int nCurrentDay = (cal.get(Calendar.DAY_OF_WEEK) + 5) % NUM_DAYS;
-            int ix;
+            
+            if (fDayOfWeek[nCurrentDay] && cal.after(Calendar.getInstance()))
+            {
+                // Early out: the alarm is set for later today
+                return cal;
+            }
 
             // Find the next day that this alarm should go off
-            for (ix = (nCurrentDay + 1) % NUM_DAYS; ix != nCurrentDay; ix = (ix + 1) % NUM_DAYS)
+            for (int ix = (nCurrentDay + 1) % NUM_DAYS; !fDayOfWeek[ix]; ix = (ix + 1) % NUM_DAYS)
             {
                 cal.add(Calendar.DATE, 1);
-                if (fDayOfWeek[ix]) break;
             }
             
-            if (ix == nCurrentDay)
-            {
-                // If the user didn't set any schedule, why didn't this get flagged as one-shot?
-                return null;
-            }
+            // Need to add one more day
+            cal.add(Calendar.DATE, 1);
         }
         
         return cal;

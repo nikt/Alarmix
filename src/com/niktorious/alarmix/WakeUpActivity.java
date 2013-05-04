@@ -81,6 +81,19 @@ public class WakeUpActivity extends Activity
             m_alarm = app.getAlarmById(nId);
         }
         
+        // Set up the display to show name of the alarm
+        TextView tvAlarmName = (TextView) findViewById(R.id.tvWakeUp);
+        String strAlarmName;
+        if (!m_alarm.strName.isEmpty())
+        {
+            strAlarmName = m_alarm.strName;
+        }
+        else
+        {
+            strAlarmName = getString(R.string.strAppName);
+        }
+        tvAlarmName.setText(strAlarmName);
+        
         // Make sure the screen is properly unlocked
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
                              WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
@@ -115,7 +128,8 @@ public class WakeUpActivity extends Activity
                 
                 // Set up the display to show the current song
                 TextView tvMarqueeTitle = (TextView) findViewById(R.id.tvMarqueeTitle);
-                tvMarqueeTitle.setText(new String(strPath));
+                String strMedia = strPath.substring(strPath.lastIndexOf('/') + 1, strPath.lastIndexOf('.'));
+                tvMarqueeTitle.setText(strMedia);
                 tvMarqueeTitle.setSelected(true);
             }
             else
